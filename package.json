@@ -1,0 +1,22 @@
+{
+  "name": "Front-end-Boilerplate",
+  "version": "1.0.0",
+  "description": "Front-end Boilerplate baseds on Gulp and Bower",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeroyBek/Front-end-Boilerplate.git"
+  },
+  "author": "Leroy Bek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeroyBek/Front-end-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/LeroyBek/Front-end-Boilerplate",
+  "dependencies": {
+    "bower": "^1.3.12",
+    "gulp": "^3.8.11"
+  }
+}
