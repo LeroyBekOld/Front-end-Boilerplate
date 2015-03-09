@@ -1,65 +1,69 @@
 var gulp = require('gulp'),
-    del = require('del'),
-    watch = require('gulp-watch'),
-
-    // Less specific gulp plugins
-    less = require('gulp-less'),
-    autoprefix = require('gulp-autoprefixer'),
-
-    // Javascript specific gulp plugins
-    jshint = require('gulp-jshint'),
-    uglify = require('gulp-uglify'),
+    bowerFiles = require('main-bower-files'),
     concat = require('gulp-concat'),
+    filter = require('gulp-filter'),
+    browserSync = require('browser-sync');
 
-    // Live reloading plugin
-    browserSync = require('browser-sync'),
-    reload = browserSync.reload;
+var filterByExtension = function(extension){
+    return filter(function(file){
+        return file.path.match(new RegExp('.' + extension + '$'));
+    });
+};
 
+gulp.task('bower', function() {
 
+    var jsFilter = filterByExtension('js'),
+        cssFilter = filterByExtension('css');
 
-gulp.task('less', function() {
-    gulp.src('source/less/style.less')
-        .pipe(less())
-        .pipe(autoprefix('last 2 version', 'ie 9'))
-        .pipe(gulp.dest('public/asset/css'))
-        .pipe(reload({stream:true}));
+    gulp.src(bowerFiles())
+        .pipe(jsFilter)
+        .pipe(concat('plugins.js'))
+        .pipe(gulp.dest('./test/js'))
+        .pipe(jsFilter.restore())
+        .pipe(cssFilter)
+        .pipe(concat('plugins.css'))
+        .pipe(gulp.dest('./test/css'));
 });
 
-gulp.task('javascript', function () {
-    return gulp.src('source/javascript/**/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))
-        .pipe(uglify())
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest('public/asset/js'))
-        .pipe(reload({stream:true}));
+gulp.task('jquery', function() {
+    var file = bowerFiles({includeSelf: true, paths: { bowerJson: 'bower_components/jquery/bower.json'}});
+
+    gulp.src(file)
+        .pipe(gulp.dest('./test/js/vendor'));
+});
+gulp.task('modernizr', function() {
+    var file = bowerFiles({includeSelf: true, paths: { bowerJson: 'bower_components/components-modernizr/bower.json'}});
+
+    gulp.src(file)
+        .pipe(gulp.dest('./test/js/vendor'));
+});
+gulp.task('normalize', function() {
+    var file = bowerFiles({includeSelf: true, paths: { bowerJson: 'bower_components/normalize-css/bower.json'}});
+
+    gulp.src(file)
+        .pipe(gulp.dest('./test/css'));
 });
 
-// Clean
-gulp.task('clean', function(cb) {
-    del(['public/asset/css'], cb)
-});
 
-// Default task
-gulp.task('default', ['clean', 'browser-sync'], function() {
-    gulp.start('less', 'javascript', 'watch');
-});
 
-// Watch
-gulp.task('watch', function() {
-
-    // Watch .less files
-    gulp.watch('source/less/**/*.less', ['less']);
-
-    // Watch .js files
-    gulp.watch('source/javascript/**/*.js', ['javascript']);
-
-});
-
-gulp.task('browser-sync', function() {
-    browserSync({
+gulp.task('browser-sync', function () {
+    browserSync.init({
         server: {
-            baseDir: "./public"
+            baseDir: './test'
         }
     });
+});
+
+
+
+
+
+
+
+gulp.task('default', function() {
+    gulp.run('bower', 'jquery', 'modernizr', 'normalize', 'browser-sync');
+});
+
+gulp.task('build', function() {
+
 });
