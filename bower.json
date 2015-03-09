@@ -10,11 +10,22 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
+    "bower_components"
   ],
   "dependencies": {
     "jquery": "~2.1.3",
     "normalize-css": "~3.0.2",
     "components-modernizr": "~2.8.3"
+  },
+  "overrides": {
+    "jquery": {
+      "ignore": true
+    },
+    "normalize-css": {
+      "ignore": true
+    },
+    "components-modernizr": {
+      "ignore": true
+    }
   }
 }
