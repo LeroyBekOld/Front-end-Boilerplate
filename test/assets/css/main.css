@@ -1,12 +1,7 @@
-.header {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.icon {
+  max-height: 100%;
+  max-width: 100%;
 }
-.footer {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.icon--inherit-color path {
+  fill: currentColor;
 }

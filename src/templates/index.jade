@@ -1,0 +1,11 @@
+//- Define layout
+extends layout/main
+
+//- Pass variables to layout
+block variables
+    - var title = "Hello world"
+
+//- Append content block to layout
+append content
+    | Hello World
+    <img class="inject-svg icon icon--inherit-color icon--home" src="assets/icons/home.svg" />
