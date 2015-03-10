@@ -30,8 +30,8 @@ gulp.task('bower', function() {
         cssFilter = filterByExtension('css');
 
     gulp.src(files)
-        .pipe(vinylPaths(del(['./test/assets/js/plugins.js'])))
-        .pipe(vinylPaths(del(['./test/assets/css/plugins.css'])))
+        .pipe(vinylPaths(del(['test/assets/js/plugins.js'])))
+        .pipe(vinylPaths(del(['test/assets/css/plugins.css'])))
         .pipe(plumber({
             errorHandler: function (err) {
                 console.log(err);
@@ -40,11 +40,11 @@ gulp.task('bower', function() {
         }))
         .pipe(jsFilter)
         .pipe(concat('plugins.js'))
-        .pipe(gulp.dest('./test/assets/js'))
+        .pipe(gulp.dest('test/assets/js'))
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
         .pipe(concat('plugins.css'))
-        .pipe(gulp.dest('./test/assets/css'));
+        .pipe(gulp.dest('test/assets/css'));
 });
 
 gulp.task('jquery', function() {
@@ -56,7 +56,7 @@ gulp.task('jquery', function() {
                 console.log(err);
                 this.emit('end');
             }
-        })).pipe(gulp.dest('./test/assets/js/vendor'));
+        })).pipe(gulp.dest('test/assets/js/vendor'));
 });
 gulp.task('modernizr', function() {
     var file = bowerFiles({includeSelf: true, paths: { bowerJson: 'bower_components/components-modernizr/bower.json'}});
@@ -68,7 +68,7 @@ gulp.task('modernizr', function() {
                 this.emit('end');
             }
         }))
-        .pipe(gulp.dest('./test/assets/js/vendor'));
+        .pipe(gulp.dest('test/assets/js/vendor'));
 });
 gulp.task('normalize', function() {
     var file = bowerFiles({includeSelf: true, paths: { bowerJson: 'bower_components/normalize-css/bower.json'}});
@@ -80,7 +80,7 @@ gulp.task('normalize', function() {
                 this.emit('end');
             }
         }))
-        .pipe(gulp.dest('./test/assets/css'));
+        .pipe(gulp.dest('test/assets/css'));
 });
 
 // Less
@@ -113,18 +113,18 @@ gulp.task('js', function() {
 });
 // Templates (.jade)
 gulp.task('templates', function() {
-    gulp.src('./src/templates/*.jade')
+    gulp.src('src/templates/*.jade')
         .pipe(plumber({
             errorHandler: function (err) {
                 console.log(err);
                 this.emit('end');
             }
         }))
-        .pipe(vinylPaths(del(['./test/*.html'])))
+        .pipe(vinylPaths(del(['test/*.html'])))
         .pipe(jade({
             pretty: true
         }))
-        .pipe(gulp.dest('./test'))
+        .pipe(gulp.dest('test'))
         .pipe(reload({stream:true}));
 });
 
@@ -137,11 +137,11 @@ gulp.task('icons', function() {
                 this.emit('end');
             }
         }))
-        .pipe(vinylPaths(del(['./test/assets/icons'])))
-        .pipe(gulp.dest('./test/assets/icons'))
+        .pipe(vinylPaths(del(['test/assets/icons'])))
+        .pipe(gulp.dest('test/assets/icons'))
         .pipe(raster())
         .pipe(rename({extname: '.png'}))
-        .pipe(gulp.dest('./test/assets/icons/png'))
+        .pipe(gulp.dest('test/assets/icons/png'))
 });
 // Images
 gulp.task('images', function(){
@@ -152,8 +152,8 @@ gulp.task('images', function(){
                 this.emit('end');
             }
         }))
-        .pipe(vinylPaths(del(['./test/assets/img'])))
-        .pipe(gulp.dest('./test/assets/img'))
+        .pipe(vinylPaths(del(['test/assets/img'])))
+        .pipe(gulp.dest('test/assets/img'))
 });
 
 // fonts
@@ -165,8 +165,8 @@ gulp.task('fonts', function(){
                 this.emit('end');
             }
         }))
-        .pipe(vinylPaths(del(['./test/assets/fonts'])))
-        .pipe(gulp.dest('./test/assets/fonts'))
+        .pipe(vinylPaths(del(['test/assets/fonts'])))
+        .pipe(gulp.dest('test/assets/fonts'))
 });
 
 
@@ -177,7 +177,7 @@ gulp.task('fonts', function(){
 gulp.task('browser-sync', function () {
     browserSync.init({
         server: {
-            baseDir: './test'
+            baseDir: 'test'
         },
         port: 1337
     });
@@ -202,23 +202,37 @@ gulp.task('build', function() {
 
 gulp.task('watch', function() {
     // Watch .less files
-    gulp.watch('src/less/**/*.less', ['less']);
+    watch('src/less/**/*.less', function() {
+        runSequence('less', 'reload')
+    });
 
     // Watch .js files
-    gulp.watch('src/js/**/*.js', ['js']);
+    watch('src/js/**/*.js', function() {
+        runSequence('js', 'reload')
+    });
 
     // Watch template files
-    gulp.watch('src/templates/**/*.jade', ['templates']);
+    watch('src/templates/**/*.jade', function() {
+        runSequence('templates', 'reload')
+    });
 
     // Watch icons
-    gulp.watch('src/icons/*.svg', ['icons']);
+    watch('src/icons/*.svg', function() {
+        runSequence('icons', 'reload')
+    });
 
     // Watch images
-    gulp.watch('src/img/**/*.{jpg,jpeg,gif,png,svg,bmp}', ['images']);
+    watch('src/img/**/*.{jpg,jpeg,gif,png,svg,bmp}', function() {
+        runSequence('images', 'reload')
+    });
 
     // Watch fonts
-    gulp.watch(['src/fonts/**/*', '!src/fonts/*.md'], ['fonts']);
+    watch(['src/fonts/**/*', '!src/fonts/*.md'], function() {
+        runSequence('fonts', 'reload')
+    });
 
     // Watch bower components
-    gulp.watch('bower_components/**/*', ['bower']);
+    watch('bower_components/**/bower.json', function() {
+        runSequence('bower', 'reload')
+    });
 });
