@@ -1,9 +1,7 @@
-(function ($) {
+(function () {
 
     'use strict';
 
-    $(function () {
-        // Code goes here
-    });
+    console.log('foo');
 
-})(jQuery);
+})();

@@ -1,5 +1,5 @@
 //- Define layout
-extends layout/main
+extends partials/layout/main
 
 //- Pass variables to layout
 block variables
@@ -7,5 +7,9 @@ block variables
 
 //- Append content block to layout
 append content
-    | Hello World
-    <img class="inject-svg icon icon--inherit-color icon--home" src="assets/icons/home.svg" />
+    table
+        tr
+            td: i.fa.fa-check asdf
+            td: i.fa.fa-check asdfasdfasd
+            td: i.fa.fa-check asdfasdfasdf
+            td: i.fa.fa-check asdfasdfasdf
