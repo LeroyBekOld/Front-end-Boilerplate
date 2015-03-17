@@ -12,12 +12,6 @@
     "node_modules",
     "bower_components"
   ],
-  "dependencies": {
-    "jquery": "~2.1.3",
-    "normalize-css": "~3.0.2",
-    "components-modernizr": "~2.8.3",
-    "svg-injector": "~1.1.2"
-  },
   "overrides": {
     "jquery": {
       "ignore": true
@@ -28,5 +22,11 @@
     "components-modernizr": {
       "ignore": true
     }
+  },
+  "devDependencies": {
+    "jquery": "~2.1.3",
+    "normalize-css": "~3.0.2",
+    "components-modernizr": "~2.8.3",
+    "svg-injector": "~1.1.2"
   }
 }

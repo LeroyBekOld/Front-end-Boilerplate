@@ -70,7 +70,6 @@ module.exports = {
         development: {
             src: source + templateFiles,
             dest: development,
-            files: htmlFiles,
             options: {
                 pretty: true
             }
@@ -125,11 +124,10 @@ module.exports = {
     },
     bower: {
         development: {
-            src: bowerFiles,
             dest: developmentAssets,
-            cssFolder: '/css',
-            jsFolder: '/js',
-            cssOutput: '/plugins.css',
+            cssFolder: '/css/',
+            jsFolder: '/js/',
+            cssOutput: 'plugins.css',
             jsOutput: 'plugins.js'
         },
         production: {

@@ -1,10 +1,13 @@
 var gulp = require('gulp');
-var vinylPaths = require('vinyl-paths');
-var del = require('del');
+var iconify = require('gulp-iconify');
 var config = require('../../config').icons.development;
 
 gulp.task('icons:development', function() {
+
+    iconify({
+        src: config.src
+    });
+
     return gulp.src(config.src)
-        .pipe(vinylPaths(del(config.dest)))
         .pipe(gulp.dest(config.dest))
 });
