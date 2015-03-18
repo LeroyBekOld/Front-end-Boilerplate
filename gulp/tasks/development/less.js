@@ -5,7 +5,6 @@ var config = require('../../config').less.development;
 
 gulp.task('less:development', function() {
 
-    // Less options
     var lessOptions = config.options;
 
     return gulp.src(config.src)

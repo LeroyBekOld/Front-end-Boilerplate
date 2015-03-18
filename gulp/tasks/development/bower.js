@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var filter = require('gulp-filter');
-var bowerFiles = require('main-bower-files');
+var mainBowerFiles = require('main-bower-files');
 var config = require('../../config').bower.development;
 
 var filterByExtension = function(extension){
@@ -12,11 +12,11 @@ var filterByExtension = function(extension){
 
 gulp.task('bower:development', function() {
 
-    var files = bowerFiles({ includeDev: true }),
+    var bowerFiles = mainBowerFiles({ includeDev: true }),
         jsFilter = filterByExtension('js'),
         cssFilter = filterByExtension('css');
 
-    return gulp.src(files)
+    return gulp.src(bowerFiles)
         .pipe(jsFilter)
         .pipe(concat(config.jsOutput))
         .pipe(gulp.dest(config.dest + config.jsFolder))

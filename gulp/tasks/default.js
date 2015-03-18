@@ -6,7 +6,7 @@ gulp.task('default', ['clean:development'], function() {
         'bower:development',
         'less:development',
         'javascript:development',
-        'templates:development',
+        'jade:development',
         'fonts:development',
         'images:development',
         'icons:development',

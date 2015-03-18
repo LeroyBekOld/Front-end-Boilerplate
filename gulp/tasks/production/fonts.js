@@ -1,7 +1,7 @@
 var gulp = require('gulp');
-var config = require('../../config').icons.development;
+var config = require('../../config').fonts.production;
 
-gulp.task('icons:development', function() {
+gulp.task('fonts:production', function(){
     return gulp.src(config.src)
         .pipe(gulp.dest(config.dest))
 });

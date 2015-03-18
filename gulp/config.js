@@ -14,7 +14,7 @@ var jsFiles = '/js/**/*.js';
 var imageFiles = '/img/**/*.{jpg,jpeg,gif,png,svg,bmp}';
 var fontFiles = '/fonts/**/*.{eot,woff,woff2,ttf.svg}';
 var iconFiles = '/icons/*.svg';
-var templateFiles = '/templates/**/*.jade';
+var jadeFiles = '/jade/**/*.jade';
 var htmlFiles = '/**/*.html';
 var bowerFiles = './bower_components/**/bower.json';
 
@@ -62,34 +62,40 @@ module.exports = {
             src: source + lessFiles,
             dest: productionAssets + '/css',
             options: {
-                compress: true
             }
         }
     },
-    templates: {
+    jade: {
         development: {
-            src: source + templateFiles,
+            src: source + jadeFiles,
             dest: development,
             options: {
-                pretty: true
+                pretty: true,
+                locals: {
+                    env: 'development'
+                }
             }
         },
         production: {
-            src: source + templateFiles,
+            src: source + jadeFiles,
             dest: production,
             options: {
-
+                locals: {
+                    env: 'production'
+                }
             }
         }
     },
     javascript: {
         development: {
             src: source + jsFiles,
-            dest: developmentAssets + '/js'
+            dest: developmentAssets + '/js',
+            output: 'main.js'
         },
         production: {
             src: source + jsFiles,
-            dest: productionAssets + '/js'
+            dest: productionAssets + '/js',
+            output: 'all.js'
         }
     },
     fonts: {
@@ -139,13 +145,10 @@ module.exports = {
             less: source + lessFiles,
             javascript: source + jsFiles,
             images: source + imageFiles,
-            templates: source + templateFiles,
+            jade: source + jadeFiles,
             icons: source + iconFiles,
             fonts: source + fontFiles,
             bower: bowerFiles
-        },
-        production: {
-
         }
     }
 };

@@ -16,8 +16,8 @@ gulp.task('watch', function() {
     });
 
     // Watch template files
-    watch(config.templates, function() {
-        runSequence('templates:development');
+    watch(config.jade, function() {
+        runSequence('jade:development');
     });
 
     // Watch icons
