@@ -13,12 +13,6 @@
     "bower_components"
   ],
   "overrides": {
-    "jquery": {
-      "ignore": true
-    },
-    "normalize-css": {
-      "ignore": true
-    },
     "components-modernizr": {
       "ignore": true
     }

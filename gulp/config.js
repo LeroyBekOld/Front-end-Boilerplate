@@ -1,23 +1,42 @@
 // General paths
-var source = './src';
-var development = './test';
-var production = './dist';
+var source = './src/';
+var development = './test/';
+var production = './dist/';
+
+// Asset folder
+var assetFolder = 'assets/';
 
 // Asset paths
-var developmentAssets = development + '/assets';
-var productionAssets = production + '/assets';
+var developmentAssets = development + assetFolder;
+var productionAssets = production + assetFolder;
+
+// Asset folder paths
+var cssFolder = 'css';
+var jsFolder = 'js';
+var imageFolder = 'img';
+var fontFolder = 'fonts';
+var iconFolder = 'icons';
+var lessFolder = 'less';
+var jadeFolder = 'jade';
+var bowerFolder = './bower_components';
 
 // file paths
-var lessFiles = '/less/**/*.less';
-var cssFiles = '/css/**/*.css';
-var jsFiles = '/js/**/*.js';
-var imageFiles = '/img/**/*.{jpg,jpeg,gif,png,svg,bmp}';
-var fontFiles = '/fonts/**/*.{eot,woff,woff2,ttf.svg}';
-var iconFiles = '/icons/*.svg';
-var jadeFiles = '/jade/**/*.jade';
+var lessFiles = '/**/*.less';
+var cssFiles = '/**/*.css';
+var jsFiles = '/**/*.js';
+var imageFiles = '/**/*.{jpg,jpeg,gif,png,svg,bmp}';
+var fontFiles = '/**/*.{eot,woff,woff2,ttf.svg}';
+var iconFiles = '/*.svg';
+var jadeFiles = '/**/*.jade';
 var htmlFiles = '/**/*.html';
-var bowerFiles = './bower_components/**/bower.json';
+var bowerFiles = '/**/bower.json';
 
+// Specific file inputs
+var mainLessFile = '/main.less';
+
+// Specific file outputs
+var cssOutputFile = '/all.css';
+var jsOutputFile = '/all.js';
 
 module.exports = {
     clean: {
@@ -35,11 +54,11 @@ module.exports = {
             },
             port: 1337, // You know!
             files: [
-                developmentAssets + cssFiles,
-                developmentAssets + jsFiles,
-                developmentAssets + imageFiles,
-                developmentAssets + fontFiles,
-                developmentAssets + iconFiles,
+                developmentAssets + cssFolder + cssFiles,
+                developmentAssets + jsFolder + jsFiles,
+                developmentAssets + imageFolder + imageFiles,
+                developmentAssets + fontFolder + fontFiles,
+                developmentAssets + iconFolder + iconFiles,
                 development + htmlFiles
             ]
         },
@@ -50,105 +69,97 @@ module.exports = {
             port: 9001 // It's over 9000!
         }
     },
-    less: {
+    css: {
         development: {
-            src: source + '/less/main.less',
-            dest: developmentAssets + '/css',
+            src: source + lessFolder + mainLessFile,
+            dest: developmentAssets + cssFolder,
+            output: cssOutputFile,
             options: {
                 dumpLineNumbers: "comments"
             }
         },
         production: {
-            src: source + lessFiles,
-            dest: productionAssets + '/css',
+            src: source + mainLessFile,
+            dest: productionAssets + cssFolder,
+            output: cssOutputFile,
             options: {
             }
         }
     },
     jade: {
         development: {
-            src: source + jadeFiles,
+            src: source + jadeFolder + jadeFiles,
             dest: development,
             options: {
                 pretty: true,
                 locals: {
-                    env: 'development'
+                    pathToCSSFile: assetFolder + cssFolder + cssOutputFile,
+                    pathToJSFile: assetFolder + jsFolder + jsOutputFile
                 }
             }
         },
         production: {
-            src: source + jadeFiles,
+            src: source + jadeFolder + jadeFiles,
             dest: production,
             options: {
                 locals: {
-                    env: 'production'
+                    pathToCSSFile: assetFolder + cssFolder + cssOutputFile,
+                    pathToJSFile: assetFolder + jsFolder + jsOutputFile
                 }
             }
         }
     },
     javascript: {
         development: {
-            src: source + jsFiles,
-            dest: developmentAssets + '/js',
-            output: 'main.js'
+            src: source + jsFolder + jsFiles,
+            dest: developmentAssets + jsFolder ,
+            output: jsOutputFile
         },
         production: {
             src: source + jsFiles,
-            dest: productionAssets + '/js',
-            output: 'all.js'
+            dest: productionAssets + jsFolder,
+            output: jsOutputFile
         }
     },
     fonts: {
         development: {
-            src: source + fontFiles,
-            dest: developmentAssets + '/fonts'
+            src: source + fontFolder + fontFiles,
+            dest: developmentAssets + fontFolder
         },
         production: {
-            src: source + jsFiles,
-            dest: productionAssets + '/fonts'
+            src: source + fontFolder + fontFiles,
+            dest: productionAssets + fontFolder
         }
     },
     images: {
         development: {
-            src: source + imageFiles,
-            dest: developmentAssets + '/img'
+            src: source + imageFolder + imageFiles,
+            dest: developmentAssets + imageFolder
         },
         production: {
-            src: source + imageFiles,
-            dest: productionAssets + '/img'
+            src: source + imageFolder + imageFiles,
+            dest: productionAssets + imageFolder
         }
     },
     icons: {
         development: {
-            src: source + iconFiles,
-            dest: developmentAssets + '/icons'
+            src: source + iconFolder + iconFiles,
+            dest: developmentAssets + iconFolder
         },
         production: {
-            src: source + iconFiles,
-            dest: productionAssets + '/icons'
-        }
-    },
-    bower: {
-        development: {
-            dest: developmentAssets,
-            cssFolder: '/css/',
-            jsFolder: '/js/',
-            cssOutput: 'plugins.css',
-            jsOutput: 'plugins.js'
-        },
-        production: {
-
+            src: source + iconFolder + iconFiles,
+            dest: productionAssets + iconFolder
         }
     },
     watch: {
         development: {
-            less: source + lessFiles,
-            javascript: source + jsFiles,
-            images: source + imageFiles,
-            jade: source + jadeFiles,
-            icons: source + iconFiles,
-            fonts: source + fontFiles,
-            bower: bowerFiles
+            less: source + lessFolder + lessFiles,
+            javascript: source + jsFolder + jsFiles,
+            images: source + imageFolder + imageFiles,
+            jade: source + jadeFolder + jadeFiles,
+            icons: source + iconFolder + iconFiles,
+            fonts: source + fontFolder + fontFiles,
+            bower: bowerFolder + bowerFiles
         }
     }
 };

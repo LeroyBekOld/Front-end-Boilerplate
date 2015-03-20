@@ -15,12 +15,7 @@ head
     meta( name="viewport" content="viewport" )
     meta( http-equiv="cleartype" content="on" )
 
-    if( env === 'production' )
-        link( rel="stylesheet" href="asset/css/all.css" )
-    else
-        link( rel="stylesheet" href="assets/css/normalize.css" )
-        link( rel="stylesheet" href="assets/css/plugins.css" )
-        link( rel="stylesheet" href="assets/css/main.css" )
+    link( rel="stylesheet" href=pathToCSSFile )
 
     script( src="assets/js/vendor/modernizr.js" )
 
@@ -29,9 +24,4 @@ body
     //- Load the content
     block content
 
-    if( env === 'production' )
-        script( src="assets/js/all.js" )
-    else
-        script( src="assets/js/vendor/jquery.js" )
-        script( src="assets/js/plugins.js" )
-        script( src="assets/js/main.js" )
+    script( src=pathToJSFile )

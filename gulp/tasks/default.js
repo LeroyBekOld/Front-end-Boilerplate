@@ -3,8 +3,7 @@ var runSequence = require('run-sequence');
 
 gulp.task('default', ['clean:development'], function() {
     runSequence(
-        'bower:development',
-        'less:development',
+        'css:development',
         'javascript:development',
         'jade:development',
         'fonts:development',

@@ -6,7 +6,7 @@ var config = require('../../config').javascript.production;
 
 gulp.task('javascript:production', function() {
 
-    var bowerFiles = mainBowerFiles();
+    var bowerFiles = mainBowerFiles({ includeDev: true, filter: /.*\.js$/i });
 
     return gulp.src(bowerFiles.concat(config.src))
         .pipe(concat(config.output))

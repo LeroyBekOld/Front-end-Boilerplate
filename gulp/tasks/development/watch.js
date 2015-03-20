@@ -37,6 +37,6 @@ gulp.task('watch', function() {
 
     // Watch bower components
     watch(config.bower, function() {
-        runSequence('bower:development')
+        runSequence('javascript:development', 'css:development')
     });
 });
