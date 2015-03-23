@@ -79,7 +79,7 @@ module.exports = {
             }
         },
         production: {
-            src: source + mainLessFile,
+            src: source + lessFolder + mainLessFile,
             dest: productionAssets + cssFolder,
             output: cssOutputFile,
             options: {
