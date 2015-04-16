@@ -16,6 +16,8 @@ var jsFolder = 'js';
 var imageFolder = 'img';
 var fontFolder = 'fonts';
 var iconFolder = 'icons';
+var iconFallbackFolder = 'fallbacks';
+var iconStyleFolder = 'icons';
 var lessFolder = 'less';
 var jadeFolder = 'jade';
 var bowerFolder = './bower_components';
@@ -27,6 +29,7 @@ var jsFiles = '/**/*.js';
 var imageFiles = '/**/*.{jpg,jpeg,gif,png,svg,bmp}';
 var fontFiles = '/**/*.{eot,woff,woff2,ttf.svg}';
 var iconFiles = '/*.svg';
+var iconTemplateFile = '/icons.mustache';
 var jadeFiles = '/**/*.jade';
 var htmlFiles = '/**/*.html';
 var bowerFiles = '/**/bower.json';
@@ -144,11 +147,13 @@ module.exports = {
     icons: {
         development: {
             src: source + iconFolder + iconFiles,
-            dest: developmentAssets + iconFolder
+            dest: developmentAssets + iconFolder,
+            fallback: developmentAssets + iconFolder + '/' + iconFallbackFolder
         },
         production: {
             src: source + iconFolder + iconFiles,
-            dest: productionAssets + iconFolder
+            dest: productionAssets + iconFolder,
+            fallback: productionAssets + iconFolder + '/' + iconFallbackFolder
         }
     },
     watch: {

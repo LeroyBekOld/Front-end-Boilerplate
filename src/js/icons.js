@@ -3,10 +3,15 @@
     'use strict';
 
     // Elements to inject
-    var SVGsToInject = document.querySelectorAll('img.inject-svg');
+    var SVGsToInject = document.querySelectorAll('.inject-svg');
+
+    // Injector options
+    var injectorOptions = {
+        evalScripts: false,
+        pngFallback: 'assets/icons/fallbacks'
+    };
 
     // Do the injection
-    SVGInjector(SVGsToInject);
+    SVGInjector(SVGsToInject, injectorOptions);
 
 }());
-

@@ -7,7 +7,7 @@ gulp.task('watch', function() {
 
     // Watch .less files
     watch(config.less, function() {
-        runSequence('less:development');
+        runSequence('css:development');
     });
 
     // Watch .js files
